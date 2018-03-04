@@ -23,12 +23,7 @@ class SearchBook extends Component {
         this.setState({ query: query.trim() });
         BookAPI.search(query)
     };
-
-    clearQuery = (query) =>{
-        this.setState({ query: '' });
-        BookAPI.search(query)
-    };
-
+    
     render() {
 
         const { query } = this.state;
