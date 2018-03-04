@@ -16,7 +16,6 @@ class BooksApp extends React.Component {
          */
         //showSearchPage: false,
         //  bookShelf: ['currentlyReading','wantToRead','read']
-        shelf: ''
     };
 
     componentDidMount() {
