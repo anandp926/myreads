@@ -1,0 +1,13 @@
+changeBookStatus = (data, shelf) => {
+        let changeShelf;
+        changeShelf=this.props.books.filter((book) => book.id === data.id);
+        if(changeShelf) {
+            BooksAPI.update(data, shelf).then((bookShelfData) =>{
+                BooksAPI.getAll().then((newData) => {
+                    this.setState({ books:newData })
+                    this.setState({shelf:newData.shelf})
+                    console.log(bookShelfData)
+                })
+            });
+        }
+    };
