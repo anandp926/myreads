@@ -7,7 +7,7 @@ import SearchBook from './SearchBook'
 
 class BooksApp extends React.Component {
     state = {
-        books: [],
+        books: []
         /**
          * TODO: Instead of using this state variable to keep track of which page
          * we're on, use the URL in the browser's address bar. This will ensure that
@@ -26,13 +26,17 @@ class BooksApp extends React.Component {
     }
 
     changeBookStatus = (book, shelf) =>{
-        BooksAPI.get(book.id).then((books) => {
-            BooksAPI.update(book,shelf)
-        }).then((books) => {
-            BooksAPI.getAll().then((books) => {
-                this.setState({books})
+        
+            BooksAPI.get(book.id).then(() => {
+                BooksAPI.update(book,shelf).then(() => {
+                    book.shelf=shelf;
+                    this.setState(state =>({
+                        books: state.books.filter((nsbook) => nsbook.id !== book.id).concat([book])
+                    }))
+                })
             })
-        })
+
+
     };
 
     render() {
@@ -54,7 +58,6 @@ class BooksApp extends React.Component {
                         )}/>
                     </Switch>
                 </Router>
-
             </div>
         )
     }
