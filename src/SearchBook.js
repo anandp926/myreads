@@ -32,12 +32,13 @@ class SearchBook extends Component {
         let showingBook
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i');
-            showingBook = books.filter((book) => match.test( book.authors ) || match.test( book.title ) )
+            showingBook = books.filter((book) => match.test( book.authors ) || match.test( book.title ) );
+            showingBook.sort(sortBy('title'));
         }else {
-            showingBook = books;
+            showingBook = [];
         }
 
-        showingBook.sort(sortBy('title'));
+
 
         return(
             <div className="search-books">
@@ -73,6 +74,7 @@ class SearchBook extends Component {
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
                                                 <option value="read">Read</option>
+                                                <option value="none">None</option>
                                             </select>
                                         </div>
                                     </div>
