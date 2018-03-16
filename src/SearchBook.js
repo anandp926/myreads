@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as BookAPI from './BooksAPI'
+import Book from './Book'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
@@ -16,12 +17,17 @@ class SearchBook extends Component {
     };
 
     state = {
-        query: ''
+        query: '',
+        books: []
     };
 
     updateQuery = (query) =>{
-        this.setState({ query: query.trim() });
-        BookAPI.search(query)
+        if(!query){
+            this.setState({query:'',books:[]})
+        }else{
+            this.setState({ query: query.trim() });
+            BookAPI.search(query)
+        }
     };
     
     render() {
@@ -64,24 +70,11 @@ class SearchBook extends Component {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {showingBook.map((book) => (
-                            <li key={ book.id }>
-                                <div className="book">
-                                    <div className="book-top">
-                                        <div className="book-cover" style={{ width: 128, height: 174, backgroundImage: `url(${ book.imageLinks.smallThumbnail })` }}></div>
-                                        <div className="book-shelf-changer">
-                                            <select value={book.shelf} onChange={(event) => this.props.onChangeShelf(book,event.target.value)}>
-                                                <option value="none" disabled>Move to...</option>
-                                                <option value="currentlyReading">Currently Reading</option>
-                                                <option value="wantToRead">Want to Read</option>
-                                                <option value="read">Read</option>
-                                                <option value="none">None</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="book-title">{ book.title }</div>
-                                    <div className="book-authors">{ book.authors[0]}</div>
-                                </div>
-                            </li>
+                            <Book
+                                onChangeShelf={this.props.onChangeShelf}
+                                key={book.id}
+                                book={book}
+                            />
                         ))}
                     </ol>
                 </div>
