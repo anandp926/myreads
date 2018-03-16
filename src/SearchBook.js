@@ -26,7 +26,13 @@ class SearchBook extends Component {
             this.setState({query:'',books:[]})
         }else{
             this.setState({ query: query.trim() });
-            BookAPI.search(query)
+            BookAPI.search(query).then((books) => {
+                if(books.error){
+                    books=[]
+                }
+                books.map(book => (this.props.books.filter((bk) => bk.id === book.id).map(bk => book.shelf = bk.shelf)))
+                this.setState({books})
+            })
         }
     };
     
