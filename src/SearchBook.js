@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as BookAPI from './BooksAPI'
 import Book from './Book'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class SearchBook extends Component {
 
@@ -25,7 +23,6 @@ class SearchBook extends Component {
         if(!query){
             this.setState({query:'',books:[]})
         }else{
-            this.setState({ query: query.trim() });
             BookAPI.search(query).then((books) => {
                 if(books.error){
                     books=[]
@@ -37,15 +34,8 @@ class SearchBook extends Component {
     };
     
     render() {
-
-        const { query } = this.state;
-        const { books } = this.props;
-
-
-
-
-
-        return(
+       const { query } = this.state;
+       return(
             <div className="search-books">
                 <div className="search-books-bar">
                     <Link to="/" className="close-search" >Close</Link>
