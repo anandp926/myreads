@@ -85,9 +85,3 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-## Contributing
-
-This repository used starter code for _all_ Udacity students.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
